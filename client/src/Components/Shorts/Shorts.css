@@ -1,0 +1,307 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .content-container {
+  position: relative;
+  width: 30%;
+  height: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container .videoBox {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.container .content-container .videoBox video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.container .sideButtons-container {
+  width: 20%;
+  height: 100%;
+}
+
+.container .videoBox .controls {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  background: linear-gradient(#28212977, transparent);
+  /* opacity: 0;
+  visibility: hidden; */
+}
+
+.container .videoBox:hover .controls {
+  opacity: 1;
+  visibility: visible;
+}
+
+.container .videoBox .controls .videoIcon {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.container .videoBox .controls .videoIcon i {
+  color: #fff;
+}
+
+.container .videoBox .controls .videoIcon i:last-child {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.container .videoBox .controls .videoIcon.play.active i:first-child,
+.container .videoBox .controls .videoIcon.mute.active i:first-child {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.container .videoBox .controls .videoIcon.play.active i:last-child,
+.container .videoBox .controls .videoIcon.mute.active i:last-child {
+  opacity: 1;
+  visibility: visible;
+}
+
+.progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: #f1f1f1;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #c4302b;
+  transition: width 0.3s ease-in-out;
+}
+
+.container .videoBox .content {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.container .videoBox .content .text {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.container .videoBox .content .text h5 {
+  color: #fff;
+  font-size: 1em;
+  font-weight: 400;
+  text-align: start;
+}
+
+.container .videoBox .content .detail {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.container .videoBox .content .detail .imgBox {
+  position: relative;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.container .videoBox .content .detail .imgBox .img {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.container .videoBox .content .detail .imgBox .img img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container .videoBox .content .detail .imgBox h4 {
+  position: relative;
+  color: #fff;
+  white-space: nowrap;
+  font-weight: 500;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.container .videoBox .content .detail .imgBox h4 span {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 35px;
+  background: rgba(119, 119, 119, 0.9);
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 300;
+  text-align: center;
+  line-height: 35px;
+  display: none;
+}
+
+.container .videoBox .content .detail .imgBox h4:hover span {
+  display: block;
+}
+
+.container .videoBox .content .detail .btn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.container .videoBox .content .detail .btn button {
+  position: relative;
+  width: 110px;
+  height: 35px;
+  border-radius: 50px;
+  outline: none;
+  border: none;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.container .videoBox .centerPlayPause {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  width: 100%;
+  height: 450px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .videoBox .centerPlayPause li {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  background: #282129;
+  border-radius: 50%;
+  border: 1px solid rgba(119, 119, 119, 0.9);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.container .videoBox .centerPlayPause li {
+  color: #fff;
+  font-size: 2em;
+}
+
+.container .videoBox .centerPlayPause li.first.active {
+  animation: animsRipples 0.5s ease;
+}
+
+.container .videoBox .centerPlayPause li.second.active {
+  animation: animsRipples 0.5s ease;
+}
+
+@keyframes animRipples {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
+  }
+  0% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container .content-container {
+    width: 90%;
+  }
+
+  .container .videoBox {
+    width: 90%;
+  }
+
+  .container .content-container .videoBox video {
+    border-radius: 10px;
+  }
+
+  .container .sideButtons-container {
+    width: 10%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  .container .content-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .container .videoBox {
+    width: 100%;
+    border-radius: 0px;
+  }
+
+  .container .content-container .videoBox video {
+    border-radius: 0px;
+  }
+
+  .container .sideButtons-container {
+    display: none;
+  }
+}
