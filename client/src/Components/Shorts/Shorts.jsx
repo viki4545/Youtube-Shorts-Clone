@@ -95,11 +95,12 @@ const Shorts = () => {
 
   return (
     <>
-      <div className="container">
-        <div
-          className="content-container"
-          onTouchStart={(e) => handleMobileSwipe(e)}
-        >
+      <div
+        className="container"
+        onTouchStart={(e) => handleMobileSwipe(e)}
+        onTouchMove={(e) => e.preventDefault()}
+      >
+        <div className="content-container">
           <div className="videoBox">
             <video
               ref={vidRef}
@@ -108,6 +109,7 @@ const Shorts = () => {
               muted={volume === true ? true : false}
               autoPlay
               loop
+              allowFullScreen={false}
             ></video>
             <div className="controls">
               <div
