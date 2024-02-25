@@ -5,6 +5,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+.nav-buttons {
+  position: absolute;
+  height: 95vh;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px; /* Adjust the left position as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-buttons button {
+  font-size: 18px;
+  background: #272727;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
 .container .content-container {
@@ -14,6 +37,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: opacity 0.3s ease;
 }
 
 .container .videoBox {
@@ -33,14 +57,20 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
   object-fit: cover;
   z-index: -1;
 }
 
 .container .sideButtons-container {
+  position: relative;
   width: 20%;
   height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 20px;
 }
 
 .container .videoBox .controls {
@@ -51,7 +81,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 10px;
   background: linear-gradient(#28212977, transparent);
   /* opacity: 0;
   visibility: hidden; */
@@ -99,7 +129,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 8px;
+  height: 3px;
   background-color: #f1f1f1;
 }
 
@@ -157,6 +187,11 @@
   width: 40px;
   height: 40px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 50%;
 }
 
 .container .videoBox .content .detail .imgBox .img img {
@@ -171,7 +206,7 @@
   color: #fff;
   white-space: nowrap;
   font-weight: 500;
-  margin-left: 5px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -212,11 +247,12 @@
   border: none;
   font-size: 0.9em;
   font-weight: 500;
+  margin-left: 10px;
 }
 
 .container .videoBox .centerPlayPause {
   position: absolute;
-  top: 44%;
+  top: 50%;
   left: 50%;
   width: 100%;
   height: 450px;
@@ -247,11 +283,11 @@
 }
 
 .container .videoBox .centerPlayPause li.first.active {
-  animation: animsRipples 0.5s ease;
+  animation: animRipples 0.5s ease;
 }
 
 .container .videoBox .centerPlayPause li.second.active {
-  animation: animsRipples 0.5s ease;
+  animation: animRipples 0.5s ease;
 }
 
 @keyframes animRipples {
@@ -267,9 +303,113 @@
   }
 }
 
+.container .sideButtons-container ul {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 130px);
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.container .sideButtons-container ul li {
+  position: relative;
+  list-style: none;
+}
+
+.container .sideButtons-container ul li a {
+  position: relative;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.container .sideButtons-container ul li a .icons {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #282129;
+  border-radius: 50%;
+}
+
+.container .sideButtons-container ul li a .icons.active {
+  background: #fff;
+}
+
+.container .sideButtons-container ul li a .icons i {
+  color: #fff;
+  font-size: 1.5em;
+}
+
+.container .sideButtons-container ul li a .icons.icons.active i {
+  color: #0f0f0f;
+}
+
+.container .sideButtons-container ul li a .title {
+  color: #fff;
+  margin-top: 3px;
+}
+
+.container .sideButtons-container ul li a .hover {
+  position: absolute;
+  right: 55px;
+  background: #666;
+  padding: 7px;
+  color: #fff;
+  font-size: 0.8em;
+  border-radius: 5px;
+  white-space: nowrap;
+  display: none;
+}
+
+.container .sideButtons-container ul li a:hover .hover {
+  display: block;
+}
+
+.container .sideButtons-container ul.bottom-icon {
+  position: relative;
+  width: 100%;
+  height: 130px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container .sideButtons-container ul.bottom-icon li {
+  position: relative;
+  top: -15px;
+}
+
+.container .sideButtons-container ul.bottom-icon li:last-child a {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.container .sideButtons-container ul.bottom-icon li:last-child a img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 @media screen and (max-width: 768px) {
   .container .content-container {
     width: 90%;
+  }
+
+  .nav-buttons {
+    display: none;
   }
 
   .container .videoBox {
@@ -292,6 +432,10 @@
     height: 100%;
   }
 
+  .nav-buttons {
+    display: none;
+  }
+
   .container .videoBox {
     width: 100%;
     border-radius: 0px;
@@ -303,5 +447,33 @@
 
   .container .sideButtons-container {
     display: none;
+  }
+
+  .container .videoBox .controls {
+    border-radius: 0px;
+  }
+
+  .container .videoBox .content .detail .imgBox {
+    width: 60%;
+  }
+
+  .container .videoBox .content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80%;
+    padding: 10px;
+  }
+
+  .container .sideButtons-container {
+    height: 90%;
+    display: flex;
+    position: absolute;
+    right: 15px;
+    bottom: 0px;
+  }
+
+  .container .sideButtons-container ul li a .icons {
+    background: transparent;
   }
 }

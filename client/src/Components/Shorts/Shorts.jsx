@@ -6,8 +6,11 @@ const Shorts = () => {
   const [volume, setVolume] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isLike, setIsLike] = useState();
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   const vidRef = useRef(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const handlePlayPause = (state) => {
     if (state === true) {
@@ -17,13 +20,32 @@ const Shorts = () => {
     }
   };
 
+  const videoList = [
+    {
+      title:
+        "moco dog cartoon | funny cartoon status for whatsapp #shorts #xanimeshorts #cartoonstatus",
+      url: "../../../assets/Videos/cartoonDog.mp4",
+    },
+    {
+      title: "Full tutorial on making rainbow cake",
+      url: "../../../assets/Videos/cakeMaking.mp4",
+    },
+    {
+      title: "Jana Gana Mana - Marble Music",
+      url: "../../../assets/Videos/JanaGana.mp4",
+    },
+    // Add more videos as needed
+  ];
+
   useEffect(() => {
-    const videoElement = document.getElementById("playMuteVideo");
+    // const videoElement = document.getElementById("playMuteVideo");
+    const videoElement = vidRef.current;
     const handleTimeUpdate = () => {
       setCurrentTime(videoElement.currentTime);
     };
     const handleLoadedMetadata = () => {
       setDuration(videoElement.duration);
+      setVideoLoaded(true);
     };
     videoElement.addEventListener("timeupdate", handleTimeUpdate);
     videoElement.addEventListener("loadedmetadata", handleLoadedMetadata);
@@ -31,22 +53,59 @@ const Shorts = () => {
       videoElement.removeEventListener("timeupdate", handleTimeUpdate);
       videoElement.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
-  }, []);
+  }, [currentVideoIndex]);
+
+  useEffect(() => {
+    vidRef.current.src = videoList[currentVideoIndex].url;
+    vidRef.current.load();
+    if (videoLoaded) {
+      vidRef.current.play();
+    }
+  }, [currentVideoIndex, videoLoaded]);
 
   const calculateProgress = () => {
     return (currentTime / duration) * 100;
   };
 
+  const handleMobileSwipe = (event) => {
+    const { deltaY } = event;
+    if (deltaY > 0) {
+      // Swiped down
+      if (currentVideoIndex < videoList.length - 1) {
+        setCurrentVideoIndex(currentVideoIndex + 1);
+      }
+    } else {
+      // Swiped up
+      if (currentVideoIndex > 0) {
+        setCurrentVideoIndex(currentVideoIndex - 1);
+      }
+    }
+  };
+
+  const handleDesktopButtonClick = (direction) => {
+    if (direction === "prev" && currentVideoIndex > 0) {
+      setCurrentVideoIndex(currentVideoIndex - 1);
+    } else if (
+      direction === "next" &&
+      currentVideoIndex < videoList.length - 1
+    ) {
+      setCurrentVideoIndex(currentVideoIndex + 1);
+    }
+  };
+
   return (
     <>
       <div className="container">
-        <div className="content-container">
+        <div
+          className="content-container"
+          onTouchStart={(e) => handleMobileSwipe(e)}
+        >
           <div className="videoBox">
             <video
               ref={vidRef}
-              src="../../../assets/Videos/cartoonDog.mp4"
+              // src={videoList[currentVideoIndex].url}
               id="playMuteVideo"
-              muted
+              muted={volume === true ? true : false}
               autoPlay
               loop
             ></video>
@@ -89,10 +148,7 @@ const Shorts = () => {
                 </div>
               </div>
               <div className="text">
-                <h5>
-                  moco dog cartoon | funny cartoon status for whatsapp #shorts
-                  #xanimeshorts #cartoonstatus
-                </h5>
+                <h5>{videoList[currentVideoIndex].title}</h5>
               </div>
             </div>
             <ul
@@ -102,10 +158,10 @@ const Shorts = () => {
                 handlePlayPause(playPause);
               }}
             >
-              <li className={playPause === false ? "first active" : "first"}>
+              <li className={playPause === true ? "first active" : "first"}>
                 <i className="fa-solid fa-play"></i>
               </li>
-              <li className={playPause === true ? "second active" : "second"}>
+              <li className={playPause === false ? "second active" : "second"}>
                 <i className="fa-solid fa-pause"></i>
               </li>
             </ul>
@@ -116,8 +172,101 @@ const Shorts = () => {
               ></div>
             </div>
           </div>
-          <div className="sideButtons-container"></div>
+          <div className="sideButtons-container">
+            <ul>
+              <li>
+                <a href="#">
+                  <span
+                    className={
+                      isLike === true
+                        ? "icons thumbsUp active"
+                        : "icons thumbsUp"
+                    }
+                    onClick={() => {
+                      setIsLike(true);
+                    }}
+                  >
+                    <i className="fa-solid fa-thumbs-up"></i>
+                  </span>
+                  <span className="title">10k</span>
+                  <div className="hover">
+                    <p>I like this</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span
+                    className={
+                      isLike === false
+                        ? "icons thumbsDown active"
+                        : "icons thumbsDown"
+                    }
+                    onClick={() => {
+                      setIsLike(false);
+                    }}
+                  >
+                    <i className="fa-solid fa-thumbs-down"></i>
+                  </span>
+                  <span className="title">Dislike</span>
+                  <div className="hover">
+                    <p>I dislike this</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span className="icons">
+                    <i className="fa-solid fa-message"></i>
+                  </span>
+                  <span className="title">532</span>
+                  <div className="hover">
+                    <p>Comments</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span className="icons">
+                    <i className="fa-solid fa-share"></i>
+                  </span>
+                  <span className="title">Share</span>
+                  <div className="hover">
+                    <p>Share</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <ul className="bottom-icon">
+              <li>
+                <a href="">
+                  <span className="icons">
+                    <i className="fa-solid fa-ellipsis-vertical"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  <img src="../../../assets/Images/avatar.png" alt="userImg" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
+      <div className="nav-buttons">
+        <button
+          onClick={() => handleDesktopButtonClick("prev")}
+          disabled={currentVideoIndex === 0}
+        >
+          <i className="fa-solid fa-arrow-up"></i>
+        </button>
+        <button
+          onClick={() => handleDesktopButtonClick("next")}
+          disabled={currentVideoIndex === videoList.length - 1}
+        >
+          <i className="fa-solid fa-arrow-down"></i>
+        </button>
       </div>
     </>
   );
