@@ -359,7 +359,7 @@
 
 .container .sideButtons-container ul li a .hover {
   position: absolute;
-  right: 55px;
+  right: 80px;
   background: #666;
   padding: 7px;
   color: #fff;
@@ -403,7 +403,7 @@
   object-fit: cover;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .container .content-container {
     width: 90%;
   }
@@ -471,6 +471,10 @@
     position: absolute;
     right: 15px;
     bottom: 0px;
+  }
+
+  .container .sideButtons-container ul li a .hover {
+    right: 40px;
   }
 
   .container .sideButtons-container ul li a .icons {
