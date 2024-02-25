@@ -68,7 +68,10 @@ const Shorts = () => {
   };
 
   const handleMobileSwipe = (event) => {
-    const { deltaY } = event;
+    const touchStartY = event.touches[0].clientY;
+    const touchEndY = event.changedTouches[0].clientY;
+    const deltaY = touchEndY - touchStartY;
+
     if (deltaY > 0) {
       // Swiped down
       if (currentVideoIndex < videoList.length - 1) {
